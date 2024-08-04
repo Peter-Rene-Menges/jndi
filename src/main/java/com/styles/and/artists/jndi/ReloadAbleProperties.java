@@ -31,16 +31,6 @@ public class ReloadAbleProperties extends Properties {
         this.maxNumberOfWatches = maxNumberOfWatches;
     }
 
-    @Override
-    public Object get(Object key) {
-        /*try {
-            load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }*/
-        return properties.get(key);
-    }
-
     public synchronized void load() throws IOException {
         Path propertiesFile = Paths.get(propertiesFileName);
 
