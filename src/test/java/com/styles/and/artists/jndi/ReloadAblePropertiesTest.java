@@ -23,8 +23,7 @@ class ReloadAblePropertiesTest {
     }
     @Test
     void load2() throws Exception {
-        File file = Files.createTempFile("test", ".properties").toFile();
-        FileWriter writer = new FileWriter(file);
+        File file = Files.createTempFile("test", ".properties").toFile();FileWriter writer = new FileWriter(file);
 
         writer.write("key1=value1\n");
         writer.write("key2=value2\n");
@@ -32,7 +31,9 @@ class ReloadAblePropertiesTest {
 
         writer.close();
 
-        ReloadAbleProperties underTest = new ReloadAbleProperties(file.getAbsolutePath());
+        ReloadAbleProperties underTest = new ReloadAbleProperties(file.getAbsolutePath(),30, 10);
+
+        underTest.load();
 
         Assertions.assertEquals("value1" , underTest.get("key1"));
         Assertions.assertEquals("value2" , underTest.get("key2"));
@@ -45,6 +46,8 @@ class ReloadAblePropertiesTest {
         writer.write("key3=value3a\n");
 
         writer.close();
+
+        Thread.sleep(3000);
 
         Assertions.assertEquals("value1a" , underTest.get("key1"));
         Assertions.assertEquals("value2a" , underTest.get("key2"));
